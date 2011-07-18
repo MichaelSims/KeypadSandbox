@@ -2,7 +2,8 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
              android:layout_width="fill_parent"
              android:layout_height="fill_parent"
-             android:stretchColumns="*">
+             android:stretchColumns="*"
+             android:shrinkColumns="*">
     <TableRow
             android:layout_weight="1">
         <TextView
@@ -50,17 +51,17 @@
     </TableRow>
     <TableRow
             android:layout_weight="1">
-        <TextView
+        <FrameLayout
                 style="@style/keypadButton"
-                android:id="@+id/keypadBlank"
-                android:text=""/>
+                android:id="@+id/keypadBlank"/>
         <TextView
                 style="@style/keypadButton"
                 android:id="@+id/keypadZero"
                 android:text="0"/>
-        <TextView
+        <ImageView
                 style="@style/keypadButton"
                 android:id="@+id/keypadBackspace"
-                android:text="-1"/>
+                android:scaleType="center"
+                android:src="@drawable/delete_button"/>
     </TableRow>
 </TableLayout>

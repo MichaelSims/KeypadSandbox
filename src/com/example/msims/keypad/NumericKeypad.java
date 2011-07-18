@@ -34,8 +34,7 @@ public class NumericKeypad extends RelativeLayout {
         layoutInflater.inflate(R.layout.numeric_keypad, this, true);
 
         final Integer[] buttons = {R.id.keypadZero, R.id.keypadOne, R.id.keypadTwo, R.id.keypadThree, R.id.keypadFour,
-                                   R.id.keypadFive, R.id.keypadSix, R.id.keypadSeven, R.id.keypadEight, R.id.keypadNine,
-                                   R.id.keypadBackspace};
+                                   R.id.keypadFive, R.id.keypadSix, R.id.keypadSeven, R.id.keypadEight, R.id.keypadNine};
 
         final OnClickListener listener = new OnClickListener() {
             public void onClick(final View view) {
@@ -48,6 +47,9 @@ public class NumericKeypad extends RelativeLayout {
             view.setTag(view.getText());
             view.setOnClickListener(listener);
         }
+        View backspaceButton = findViewById(R.id.keypadBackspace);
+        backspaceButton.setTag("backspace");
+        backspaceButton.setOnClickListener(listener);
     }
 
 }
