@@ -17,6 +17,11 @@ public class MainActivity extends FragmentActivity {
         findViewById(R.id.warpMeToHalifax).setOnClickListener(new View.OnClickListener() {
             public void onClick(final View view) {
                 PinKeypadFragment fragment = new PinKeypadFragment();
+
+                Bundle bundle = new Bundle();
+                bundle.putString(PinKeypadFragment.Arguments.pinToMatchAgainst.toString(), "8675");
+                fragment.setArguments(bundle);
+                
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 ft.addToBackStack(null);
                 fragment.show(ft, "dialog");

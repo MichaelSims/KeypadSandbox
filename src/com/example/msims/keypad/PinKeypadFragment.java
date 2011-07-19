@@ -7,11 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Checkable;
+import android.widget.Toast;
 
 public class PinKeypadFragment extends DialogFragment implements NumericKeypad.KeyPressedListener {
 
     public static final  int    PIN_BUFFER_MAX_LENGTH = 4;
     private static final String PIN_BUFFER_KEY        = "pinBuffer";
+    public static final int CLEAR_PIN_DELAY_IN_MILLIS = 100;
+
+    public enum Arguments {
+        pinToMatchAgainst
+    }
 
     private String pinBuffer = "";
     private Checkable[] pinBoxes;
@@ -20,6 +26,11 @@ public class PinKeypadFragment extends DialogFragment implements NumericKeypad.K
     public void onCreate(final Bundle savedInstanceState) {
         Log.e("flubber", "I was created!");
         super.onCreate(savedInstanceState);
+
+        /* Validate arguments */
+        if (getArguments() == null || getArguments().getString(Arguments.pinToMatchAgainst.toString()) == null) {
+            throw new IllegalStateException("getArguments() null or " + Arguments.pinToMatchAgainst + " not provided");
+        }
 
         if (savedInstanceState != null) {
             pinBuffer = savedInstanceState.getString(PIN_BUFFER_KEY);
@@ -71,5 +82,21 @@ public class PinKeypadFragment extends DialogFragment implements NumericKeypad.K
             pinBuffer = pinBuffer.substring(0, pinBuffer.length() - 1);
         }
         refreshPinBoxesState();
+
+        /* Validate pin if it's long enough */
+        if (pinBuffer.length() == PIN_BUFFER_MAX_LENGTH) {
+            if (pinBuffer.equals(getArguments().getString(Arguments.pinToMatchAgainst.toString()))) {
+                Toast.makeText(getActivity(), "You so good!!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getActivity(), "You stupid!", Toast.LENGTH_SHORT).show();
+            }
+            getView().postDelayed(new Runnable() {
+                public void run() {
+                    pinBuffer = "";
+                    refreshPinBoxesState();
+                }
+            }, CLEAR_PIN_DELAY_IN_MILLIS);
+        }
     }
+
 }
