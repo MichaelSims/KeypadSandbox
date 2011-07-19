@@ -6,12 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class NumericKeypad extends RelativeLayout {
+
+    private KeyPressedListener keyPressedListener;
 
     public NumericKeypad(final Context context) {
         super(context);
@@ -38,8 +36,9 @@ public class NumericKeypad extends RelativeLayout {
 
         final OnClickListener listener = new OnClickListener() {
             public void onClick(final View view) {
-                final Toast toast = Toast.makeText(context, view.getTag().toString(), Toast.LENGTH_SHORT);
-                toast.show();
+                if (keyPressedListener != null) {
+                    keyPressedListener.onKeyPressed(view.getTag() != null ? view.getTag().toString() : null);
+                }
             }
         };
         for (Integer viewId : buttons) {
@@ -48,8 +47,20 @@ public class NumericKeypad extends RelativeLayout {
             view.setOnClickListener(listener);
         }
         View backspaceButton = findViewById(R.id.keypadBackspace);
-        backspaceButton.setTag("backspace");
         backspaceButton.setOnClickListener(listener);
+    }
+
+    public void setKeyPressedListener(final KeyPressedListener keyPressedListener) {
+        this.keyPressedListener = keyPressedListener;
+    }
+
+    public interface KeyPressedListener {
+        /**
+         * Listener method called when a key is pressed on the keypad
+         *
+         * @param key The string value of the key pressed, or null if backspace was pressed.
+         */
+        void onKeyPressed(String key);
     }
 
 }
