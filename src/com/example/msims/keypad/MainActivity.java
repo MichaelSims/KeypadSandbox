@@ -14,9 +14,10 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        PinKeypadFragment fragment = new PinKeypadFragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(new PinKeypadFragment(), null);
-        ft.commit();
+        ft.addToBackStack(null);
+        fragment.show(ft, "dialog");
     }
 
 }
