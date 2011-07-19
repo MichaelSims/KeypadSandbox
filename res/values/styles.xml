@@ -10,4 +10,11 @@
         <item name="android:background">@drawable/numeric_keypad_button_sel</item>
         <item name="android:layout_weight">1</item>
     </style>
+    <style name="keypadTitle" parent="@android:style/TextAppearance.Large">
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>
