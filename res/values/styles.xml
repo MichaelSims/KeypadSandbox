@@ -25,4 +25,8 @@
     <style name="pinPrompt" parent="@android:style/TextAppearance.Medium">
         <item name="android:textColor">@color/Black</item>
     </style>
+    <style name="pinError" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/Red</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

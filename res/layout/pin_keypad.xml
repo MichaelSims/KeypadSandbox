@@ -13,16 +13,16 @@
             android:layout_centerHorizontal="true"
             android:text="Parental Controls"/>
     <Button
+            android:id="@+id/cancelButton"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:id="@+id/cancelButton"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@id/title"
             android:textSize="8sp"
             android:text="Cancel"/>
     <RelativeLayout
-            android:id="@+id/pinBoxes"
-            android:layout_height="100dp"
+            android:id="@+id/pinBoxContainerOuter"
+            android:layout_height="120dp"
             android:layout_width="300dp"
             android:layout_below="@id/title"
             android:layout_margin="3dp"
@@ -36,6 +36,7 @@
                 android:layout_alignParentTop="true"
                 android:text="Please enter your PIN."/>
         <LinearLayout
+                android:id="@+id/pinBoxContainerInner"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:orientation="horizontal"
@@ -54,10 +55,19 @@
                     android:id="@+id/pinBoxFour"
                     style="@style/pinBox"/>
         </LinearLayout>
+        <TextView
+                android:id="@+id/pinError"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_below="@id/pinBoxContainerInner"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone"
+                android:text="Incorrect PIN, Please try again"
+                style="@style/pinError"/>
     </RelativeLayout>
     <com.example.msims.keypad.NumericKeypad
             android:id="@+id/keypad"
-            android:layout_below="@id/pinBoxes"
+            android:layout_below="@id/pinBoxContainerOuter"
             android:layout_centerHorizontal="true"
             android:layout_height="300dp"
             android:layout_width="300dp"/>

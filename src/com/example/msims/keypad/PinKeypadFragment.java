@@ -14,6 +14,7 @@ public class PinKeypadFragment extends DialogFragment implements NumericKeypad.K
     public static final  int    PIN_BUFFER_MAX_LENGTH = 4;
     private static final String PIN_BUFFER_KEY        = "pinBuffer";
     public static final int CLEAR_PIN_DELAY_IN_MILLIS = 100;
+    private View pinError;
 
     public enum Arguments {
         pinToMatchAgainst
@@ -56,6 +57,7 @@ public class PinKeypadFragment extends DialogFragment implements NumericKeypad.K
                                    (Checkable) layout.findViewById(R.id.pinBoxThree), (Checkable) layout.findViewById(R.id.pinBoxFour)};
         refreshPinBoxesState();
 
+        pinError = layout.findViewById(R.id.pinError);
         return layout;
     }
 
@@ -74,6 +76,13 @@ public class PinKeypadFragment extends DialogFragment implements NumericKeypad.K
     }
 
     public void onKeyPressed(final String key) {
+
+        /* Hide error message if it's showing */
+        if (pinError.isShown()) {
+            pinError.setVisibility(View.GONE);
+        }
+
+        /* Update pin buffer and refresh box state */
         if (key != null) {
             if (pinBuffer.length() < PIN_BUFFER_MAX_LENGTH) {
                 pinBuffer += key;
@@ -88,7 +97,7 @@ public class PinKeypadFragment extends DialogFragment implements NumericKeypad.K
             if (pinBuffer.equals(getArguments().getString(Arguments.pinToMatchAgainst.toString()))) {
                 Toast.makeText(getActivity(), "You so good!!", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(getActivity(), "You stupid!", Toast.LENGTH_SHORT).show();
+                pinError.setVisibility(View.VISIBLE);
             }
             getView().postDelayed(new Runnable() {
                 public void run() {
