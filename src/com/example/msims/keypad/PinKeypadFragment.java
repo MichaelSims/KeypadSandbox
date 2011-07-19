@@ -21,6 +21,11 @@ public class PinKeypadFragment extends DialogFragment implements NumericKeypad.K
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.pin_keypad, container, false);
         ((NumericKeypad) layout.findViewById(R.id.keypad)).setKeyPressedListener(this);
+        layout.findViewById(R.id.cancelButton).setOnClickListener(new View.OnClickListener() {
+            public void onClick(final View view) {
+                dismiss();
+            }
+        });
         return layout;
     }
 
