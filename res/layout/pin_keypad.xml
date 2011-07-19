@@ -12,6 +12,14 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:text="Parental Controls"/>
+    <Button
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/cancelButton"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/title"
+            android:textSize="8sp"
+            android:text="Cancel"/>
     <RelativeLayout
             android:layout_below="@id/title"
             android:layout_height="wrap_content"
