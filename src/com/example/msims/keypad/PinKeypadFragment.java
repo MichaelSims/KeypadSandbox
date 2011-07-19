@@ -10,7 +10,9 @@ import android.widget.Toast;
 
 public class PinKeypadFragment extends DialogFragment implements NumericKeypad.KeyPressedListener {
 
-    private static final String PIN_BUFFER_KEY = "pinBuffer";
+    public static final  int    PIN_BUFFER_MAX_LENGTH = 4;
+    private static final String PIN_BUFFER_KEY        = "pinBuffer";
+
     private String pinBuffer = "";
 
     @Override
@@ -49,7 +51,9 @@ public class PinKeypadFragment extends DialogFragment implements NumericKeypad.K
 
     public void onKeyPressed(final String key) {
         if (key != null) {
-            pinBuffer += key;
+            if (pinBuffer.length() < PIN_BUFFER_MAX_LENGTH) {
+                pinBuffer += key;
+            }
         } else if (pinBuffer.length() > 0) { //Handle backspace if pinBuffer isn't empty
             pinBuffer = pinBuffer.substring(0, pinBuffer.length() - 1);
         }
