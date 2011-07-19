@@ -41,22 +41,18 @@
                 android:orientation="horizontal"
                 android:layout_below="@id/pinPrompt"
                 android:layout_centerHorizontal="true">
-            <ImageView
+            <CheckBox
                     android:id="@+id/pinBoxOne"
-                    style="@style/pinBox"
-                    android:src="@drawable/pin_box"/>
-            <ImageView
+                    style="@style/pinBox"/>
+            <CheckBox
                     android:id="@+id/pinBoxTwo"
-                    style="@style/pinBox"
-                    android:src="@drawable/pin_box"/>
-            <ImageView
+                    style="@style/pinBox"/>
+            <CheckBox
                     android:id="@+id/pinBoxThree"
-                    style="@style/pinBox"
-                    android:src="@drawable/pin_box"/>
-            <ImageView
+                    style="@style/pinBox"/>
+            <CheckBox
                     android:id="@+id/pinBoxFour"
-                    style="@style/pinBox"
-                    android:src="@drawable/pin_box"/>
+                    style="@style/pinBox"/>
         </LinearLayout>
     </RelativeLayout>
     <com.example.msims.keypad.NumericKeypad

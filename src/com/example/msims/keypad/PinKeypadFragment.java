@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.Checkable;
 
 public class PinKeypadFragment extends DialogFragment implements NumericKeypad.KeyPressedListener {
 
@@ -14,6 +14,7 @@ public class PinKeypadFragment extends DialogFragment implements NumericKeypad.K
     private static final String PIN_BUFFER_KEY        = "pinBuffer";
 
     private String pinBuffer = "";
+    private Checkable[] pinBoxes;
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
@@ -32,13 +33,25 @@ public class PinKeypadFragment extends DialogFragment implements NumericKeypad.K
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.pin_keypad, container, false);
+
         ((NumericKeypad) layout.findViewById(R.id.keypad)).setKeyPressedListener(this);
         layout.findViewById(R.id.cancelButton).setOnClickListener(new View.OnClickListener() {
             public void onClick(final View view) {
                 dismiss();
             }
         });
+
+        pinBoxes = new Checkable[]{(Checkable) layout.findViewById(R.id.pinBoxOne), (Checkable) layout.findViewById(R.id.pinBoxTwo),
+                                   (Checkable) layout.findViewById(R.id.pinBoxThree), (Checkable) layout.findViewById(R.id.pinBoxFour)};
+        refreshPinBoxesState();
+
         return layout;
+    }
+
+    public void refreshPinBoxesState() {
+        for (int i = 0; i < pinBoxes.length; i++) {
+            pinBoxes[i].setChecked(i < pinBuffer.length());
+        }
     }
 
     @Override
@@ -57,5 +70,6 @@ public class PinKeypadFragment extends DialogFragment implements NumericKeypad.K
         } else if (pinBuffer.length() > 0) { //Handle backspace if pinBuffer isn't empty
             pinBuffer = pinBuffer.substring(0, pinBuffer.length() - 1);
         }
+        refreshPinBoxesState();
     }
 }
