@@ -50,7 +50,7 @@ public class PinKeypadFragment extends DialogFragment implements NumericKeypad.K
     public void onKeyPressed(final String key) {
         if (key != null) {
             pinBuffer += key;
-        } else if (pinBuffer.length() > 0) {
+        } else if (pinBuffer.length() > 0) { //Handle backspace if pinBuffer isn't empty
             pinBuffer = pinBuffer.substring(0, pinBuffer.length() - 1);
         }
     }
