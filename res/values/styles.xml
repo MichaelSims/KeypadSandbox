@@ -5,7 +5,7 @@
         <item name="android:layout_width">fill_parent</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_margin">2dp</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@color/White</item>
         <item name="android:textStyle">bold</item>
         <item name="android:background">@drawable/numeric_keypad_button_sel</item>
         <item name="android:layout_weight">1</item>
@@ -14,7 +14,15 @@
         <item name="android:layout_height">fill_parent</item>
         <item name="android:layout_width">fill_parent</item>
         <item name="android:gravity">center</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@color/White</item>
         <item name="android:textStyle">bold</item>
+    </style>
+    <style name="pinBox">
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_margin">10dp</item>
+    </style>
+    <style name="pinPrompt" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/Black</item>
     </style>
 </resources>

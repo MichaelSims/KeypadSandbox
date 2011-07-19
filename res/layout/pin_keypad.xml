@@ -15,9 +15,50 @@
     <RelativeLayout
             android:layout_below="@id/title"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content">
+            android:layout_width="wrap_content"
+            android:padding="5dp">
+        <RelativeLayout
+                android:id="@+id/pinBoxes"
+                android:layout_height="100dp"
+                android:layout_width="300dp"
+                android:layout_alignParentTop="true"
+                android:background="@color/LighterGray">
+            <TextView
+                    android:id="@+id/pinPrompt"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    style="@style/pinPrompt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentTop="true"
+                    android:text="Please enter your PIN."/>
+            <ImageView
+                    android:id="@+id/pinBoxOne"
+                    style="@style/pinBox"
+                    android:layout_below="@id/pinPrompt"
+                    android:layout_alignParentLeft="true"
+                    android:src="@drawable/pin_box"/>
+            <ImageView
+                    android:id="@+id/pinBoxTwo"
+                    style="@style/pinBox"
+                    android:layout_below="@id/pinPrompt"
+                    android:layout_toRightOf="@id/pinBoxOne"
+                    android:src="@drawable/pin_box"/>
+            <ImageView
+                    android:id="@+id/pinBoxThree"
+                    style="@style/pinBox"
+                    android:layout_below="@id/pinPrompt"
+                    android:layout_toRightOf="@id/pinBoxTwo"
+                    android:src="@drawable/pin_box"/>
+            <ImageView
+                    android:id="@+id/pinBoxFour"
+                    style="@style/pinBox"
+                    android:layout_below="@id/pinPrompt"
+                    android:layout_toRightOf="@id/pinBoxThree"
+                    android:src="@drawable/pin_box"/>
+        </RelativeLayout>
         <com.example.msims.keypad.NumericKeypad
                 android:id="@+id/keypad"
+                android:layout_below="@id/pinBoxes"
                 android:layout_height="300dp"
                 android:layout_width="300dp"/>
     </RelativeLayout>
