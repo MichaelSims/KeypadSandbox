@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class HostFragment extends Fragment{
+public class HostFragment extends Fragment {
 
     @Override
     public void onAttach(final Activity activity) {
