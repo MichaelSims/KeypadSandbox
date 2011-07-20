@@ -2,6 +2,7 @@ package com.example.msims.keypad;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,26 +12,39 @@ import android.widget.Toast;
 
 public class PinKeypadFragment extends DialogFragment implements NumericKeypad.KeyPressedListener {
 
-    public static final  int    PIN_BUFFER_MAX_LENGTH = 4;
-    private static final String PIN_BUFFER_KEY        = "pinBuffer";
-    public static final int CLEAR_PIN_DELAY_IN_MILLIS = 100;
+    public static final  int    PIN_BUFFER_MAX_LENGTH     = 4;
+    private static final String PIN_BUFFER_KEY            = "pinBuffer";
+    public static final  int    CLEAR_PIN_DELAY_IN_MILLIS = 100;
     private View pinError;
+
+    private String pinBuffer = "";
+    private Checkable[] pinBoxes;
 
     public enum Arguments {
         pinToMatchAgainst
     }
 
-    private String pinBuffer = "";
-    private Checkable[] pinBoxes;
+    public interface PinVerifiedListener {
+
+        /**
+         * Called when the user has entered the correct PIN.
+         */
+        void onPinVerified();
+    }
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
-        Log.e("flubber", "I was created!");
+        Log.e("flubber", "I was created! " + getTargetFragment());
         super.onCreate(savedInstanceState);
 
         /* Validate arguments */
         if (getArguments() == null || getArguments().getString(Arguments.pinToMatchAgainst.toString()) == null) {
             throw new IllegalStateException("getArguments() null or " + Arguments.pinToMatchAgainst + " not provided");
+        }
+
+        /* Validate target fragment */
+        if (getTargetFragment() == null || !(getTargetFragment() instanceof PinVerifiedListener)) {
+            throw new IllegalStateException("No target fragment or target fragment doesn't implement " + PinVerifiedListener.class);
         }
 
         if (savedInstanceState != null) {
@@ -95,7 +109,8 @@ public class PinKeypadFragment extends DialogFragment implements NumericKeypad.K
         /* Validate pin if it's long enough */
         if (pinBuffer.length() == PIN_BUFFER_MAX_LENGTH) {
             if (pinBuffer.equals(getArguments().getString(Arguments.pinToMatchAgainst.toString()))) {
-                Toast.makeText(getActivity(), "You so good!!", Toast.LENGTH_SHORT).show();
+                dismiss();
+                ((PinVerifiedListener) getTargetFragment()).onPinVerified();
             } else {
                 pinError.setVisibility(View.VISIBLE);
             }

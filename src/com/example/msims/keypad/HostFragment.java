@@ -8,8 +8,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-public class HostFragment extends Fragment {
+public class HostFragment extends Fragment implements PinKeypadFragment.PinVerifiedListener {
+
+    private TextView warpMeToHalifax;
 
     @Override
     public void onAttach(final Activity activity) {
@@ -21,7 +24,8 @@ public class HostFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.host_fragment, container, false);
 
-        layout.findViewById(R.id.warpMeToHalifax).setOnClickListener(new View.OnClickListener() {
+        warpMeToHalifax = (TextView) layout.findViewById(R.id.warpMeToHalifax);
+        warpMeToHalifax.setOnClickListener(new View.OnClickListener() {
             public void onClick(final View view) {
                 PinKeypadFragment fragment = new PinKeypadFragment();
 
@@ -29,11 +33,17 @@ public class HostFragment extends Fragment {
                 bundle.putString(PinKeypadFragment.Arguments.pinToMatchAgainst.toString(), "8675");
                 fragment.setArguments(bundle);
 
+                fragment.setTargetFragment(HostFragment.this, 0);
+
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.addToBackStack(null);
                 fragment.show(ft, "dialog");
             }
         });
         return layout;
+    }
+
+    public void onPinVerified() {
+        warpMeToHalifax.setText("OMG YOU DID IT YOU ARE THE BEST!!");
     }
 }
