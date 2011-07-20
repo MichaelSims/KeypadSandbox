@@ -14,19 +14,11 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        findViewById(R.id.warpMeToHalifax).setOnClickListener(new View.OnClickListener() {
-            public void onClick(final View view) {
-                PinKeypadFragment fragment = new PinKeypadFragment();
-
-                Bundle bundle = new Bundle();
-                bundle.putString(PinKeypadFragment.Arguments.pinToMatchAgainst.toString(), "8675");
-                fragment.setArguments(bundle);
-                
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.addToBackStack(null);
-                fragment.show(ft, "dialog");
-            }
-        });
+        if (getSupportFragmentManager().findFragmentById(R.id.fragmentContainer) == null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.add(R.id.fragmentContainer, new HostFragment(), HostFragment.class.getSimpleName());
+            ft.commit();
+        }
     }
 
 }
