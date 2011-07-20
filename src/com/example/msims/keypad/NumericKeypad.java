@@ -23,7 +23,6 @@ public class NumericKeypad extends RelativeLayout {
 
     public NumericKeypad(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
-        LayoutInflater.from(context);
         init(context);
     }
 
