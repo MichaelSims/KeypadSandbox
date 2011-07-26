@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="SmallestButtonNoArrow">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingTop">1dp</item>
+    </style>
+    <style name="DoneButton" parent="@style/SmallestButtonNoArrow">
+        <item name="android:textSize">16dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/White</item>
+        <item name="android:background">@drawable/done_btn_default</item>
+    </style>
+    <style name="PinKeypadCancelButton" parent="@style/DoneButton">
+        <item name="android:layout_height">31dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:paddingLeft">9dp</item>
+        <item name="android:paddingRight">9dp</item>
+    </style>
     <style name="keypadButton" parent="@android:style/TextAppearance.Medium">
-        <item name="android:layout_height">fill_parent</item>
-        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">54dp</item>
+        <item name="android:layout_width">106dp</item>
         <item name="android:gravity">center</item>
-        <item name="android:layout_margin">2dp</item>
         <item name="android:textColor">@color/White</item>
         <item name="android:textStyle">bold</item>
         <item name="android:background">@drawable/numeric_keypad_button_sel</item>
@@ -18,16 +33,20 @@
         <item name="android:textStyle">bold</item>
     </style>
     <style name="pinBox">
-        <item name="android:layout_height">40dp</item>
-        <item name="android:layout_width">40dp</item>
-        <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_marginLeft">11dp</item>
+        <item name="android:layout_marginRight">11dp</item>
+        <item name="android:button">@drawable/pin_box_sel</item>
+        <item name="android:gravity">center</item>
         <item name="android:clickable">false</item>
     </style>
-    <style name="pinPrompt" parent="@android:style/TextAppearance.Medium">
-        <item name="android:textColor">@color/Black</item>
+    <style name="pinPrompt">
+        <item name="android:textColor">@color/NearlyBlack</item>
+        <item name="android:textSize">16dp</item>
     </style>
-    <style name="pinError" parent="@android:style/TextAppearance.Medium">
+    <style name="pinError">
         <item name="android:textColor">@color/Red</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16dp</item>
     </style>
 </resources>

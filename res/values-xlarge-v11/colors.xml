@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="White">#FFFFFF</color>
-    <color name="LighterGray">#ECECEC</color>
+    <color name="LighterGray">#EEEEEE</color>
     <color name="LightGray">#CCCCCC</color>
     <color name="DarkGray">#2E2E2E</color>
     <color name="DarkerGray">#1A1A1A</color>
     <color name="Black">#000000</color>
+    <color name="NearlyBlack">#313131</color>
+    <color name="DefaultText">@color/NearlyBlack</color>
     <color name="Red">#FF0000</color>
 </resources>
