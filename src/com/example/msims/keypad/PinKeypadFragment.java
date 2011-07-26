@@ -77,6 +77,14 @@ public class PinKeypadFragment extends DialogFragment implements NumericKeypad.K
         refreshPinBoxesState();
 
         pinError = layout.findViewById(R.id.pinError);
+
+        /* Dim the window behind this dialog */
+        Window window = getDialog().getWindow();
+        WindowManager.LayoutParams attr = window.getAttributes();
+        attr.dimAmount = 0.7f;
+        window.setAttributes(attr);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+
         return layout;
     }
 
