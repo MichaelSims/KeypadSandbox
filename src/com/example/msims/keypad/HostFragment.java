@@ -3,6 +3,7 @@ package com.example.msims.keypad;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class HostFragment extends Fragment implements PinKeypadFragment.PinVerifiedListener {
+public class HostFragment extends Fragment {
 
     private TextView warpMeToHalifax;
 
@@ -27,23 +28,31 @@ public class HostFragment extends Fragment implements PinKeypadFragment.PinVerif
         warpMeToHalifax = (TextView) layout.findViewById(R.id.warpMeToHalifax);
         warpMeToHalifax.setOnClickListener(new View.OnClickListener() {
             public void onClick(final View view) {
-                PinKeypadFragment fragment = new PinKeypadFragment();
-
-                Bundle bundle = new Bundle();
-                bundle.putString(PinKeypadFragment.Arguments.pinToMatchAgainst.toString(), "8675");
-                fragment.setArguments(bundle);
-
-                fragment.setTargetFragment(HostFragment.this, 0);
-
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.addToBackStack(null);
-                fragment.show(ft, "dialog");
+                promptForAnyPlayPinBeforeExecuting(getFragmentManager(), new Runnable() {
+                    public void run() {
+                        warpMeToHalifax.setText("OMG YOU DID IT YOU ARE THE BEST!!");
+                    }
+                });
             }
         });
         return layout;
     }
 
-    public void onPinVerified() {
-        warpMeToHalifax.setText("OMG YOU DID IT YOU ARE THE BEST!!");
+    public static void promptForAnyPlayPinBeforeExecuting(final FragmentManager fragmentManager, final Runnable runnable) {
+        PinKeypadFragment fragment = new PinKeypadFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(PinKeypadFragment.Arguments.pinToMatchAgainst.toString(), "8675"); //TODO get a real PIN, not a fake one :-P
+        fragment.setArguments(bundle);
+
+        fragment.setPinVerifiedListener(new PinKeypadFragment.PinVerifiedListener() {
+            public void onPinVerified() {
+                runnable.run();
+            }
+        });
+
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.addToBackStack(null);
+        fragment.show(ft, "dialog");
     }
+
 }

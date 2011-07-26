@@ -4,9 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.Checkable;
 import android.widget.Toast;
 
@@ -19,6 +17,12 @@ public class PinKeypadFragment extends DialogFragment implements NumericKeypad.K
 
     private String pinBuffer = "";
     private Checkable[] pinBoxes;
+
+    private PinVerifiedListener pinVerifiedListener;
+
+    public void setPinVerifiedListener(final PinVerifiedListener pinVerifiedListener) {
+        this.pinVerifiedListener = pinVerifiedListener;
+    }
 
     public enum Arguments {
         pinToMatchAgainst
@@ -42,9 +46,10 @@ public class PinKeypadFragment extends DialogFragment implements NumericKeypad.K
             throw new IllegalStateException("getArguments() null or " + Arguments.pinToMatchAgainst + " not provided");
         }
 
-        /* Validate target fragment */
-        if (getTargetFragment() == null || !(getTargetFragment() instanceof PinVerifiedListener)) {
-            throw new IllegalStateException("No target fragment or target fragment doesn't implement " + PinVerifiedListener.class);
+        /* Validate listener */
+        if (pinVerifiedListener == null) {
+            dismiss();
+            return;
         }
 
         if (savedInstanceState != null) {
@@ -110,7 +115,7 @@ public class PinKeypadFragment extends DialogFragment implements NumericKeypad.K
         if (pinBuffer.length() == PIN_BUFFER_MAX_LENGTH) {
             if (pinBuffer.equals(getArguments().getString(Arguments.pinToMatchAgainst.toString()))) {
                 dismiss();
-                ((PinVerifiedListener) getTargetFragment()).onPinVerified();
+                pinVerifiedListener.onPinVerified();
             } else {
                 pinError.setVisibility(View.VISIBLE);
             }
